@@ -62,6 +62,7 @@ export default {
     margin: 0 auto;
     .logo {
       padding-top: 9px;
+      margin-right: 15px;
       img {
         display: block;
         width: 156px;
