@@ -3,7 +3,7 @@
     <el-row class="main" type="flex" justify="space-around">
       <el-row class="logo">
         <nuxt-link to="/">
-          <img src="http://157.122.54.189:9093/images/logo.jpg" alt>
+          <img src="../static/images/logo.jpg" alt>
         </nuxt-link>
       </el-row>
       <el-row class="navs" type="flex">

@@ -52,6 +52,7 @@ export default {
           // })
           this.$store.dispatch('user/login',this.loginForm).then(res=>{
                this.$message.success("登录成功");
+               console.log(res);
               setTimeout(() => {
                 this.$router.push("/");
               }, 1000);

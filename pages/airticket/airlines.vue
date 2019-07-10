@@ -55,6 +55,19 @@
         </div>
         <div class="search-history">
           <h3>历史查询</h3>
+          <el-row class="searhHistoryItem" 
+          type="flex"
+           justify="space-between"
+            align="middle"
+            v-for="(item,index) in searchHistory "
+            :key='index'
+            >
+            <div class="historySearchInfo">
+              <div class="historyAirline">{{item.departCity}} - {{item.destCity}}</div>
+              <div class="historyAirDate">{{item.departDate}}</div>
+            </div>
+             <div class="choiceBtn" @click="handleChoseHistory(item)">选择</div>
+          </el-row>
         </div>
       </div>
     </el-row>
@@ -87,7 +100,10 @@ export default {
     //每页显示的条数
         pageSize:5,
         //总条数
-        total:0
+        total:0,
+
+    //搜索历史
+    searchHistory:[]
     };
   },
   methods: {
@@ -115,7 +131,14 @@ export default {
      handleCurrentChange(currentPage){
          this.currentPage = currentPage
          this.render()
-     }
+     },
+     //根据搜索历史记录跳转到历史航班信息
+    handleChoseHistory(item){
+      this.$router.push({
+        path:'/airticket/airlines',
+        query:item
+      })
+    }
   },
   mounted() {
     // console.log(this.$route);
@@ -128,6 +151,22 @@ export default {
 
       this.render()
     });
+    //获取搜索历史
+    this.searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]')
+  },
+  watch: {
+    //监听路由变化
+    $route:function (val,oldval) {
+      // console.log(val);
+      //重新发请求
+       this.$axios.get("/airs", { params:val.query }).then(res => {
+      console.log(res);
+      this.fligthsInfo = res.data;
+      this.cashFligthsInfo = {...res.data}
+      this.total = this.fligthsInfo.total;
+      this.render()
+    });
+    }
   },
   components: {
     airlinesItem,
@@ -196,6 +235,30 @@ export default {
           font-size: 16px;
           font-weight: normal;
           border-bottom: 1px solid #ddd;
+        }
+        .searhHistoryItem{
+          padding:5px 0;
+          .historySearchInfo{
+            .historyAirline{
+              font-size: 14px;
+            }
+            .historyAirDate{
+              margin-top: 5px;
+              font-size: 12px;
+              color:#666
+            }
+          }
+          .choiceBtn{
+            font-size: 12px;
+            height: 20px;
+            width: 45px;
+            line-height: 20px;
+            border-radius: 5px;
+            text-align: center;
+            color:#fff;
+            background: orange;
+            cursor: pointer;
+          }
         }
       }
     }

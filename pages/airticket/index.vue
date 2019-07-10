@@ -10,7 +10,7 @@
         <!-- 搜索机票模块 -->
         <searchticket></searchticket>
         <div class="banner">
-          <img src="http://157.122.54.189:9093/images/pic_sale.jpeg">
+          <img src="../../static/images/pic_sale.jpeg">
         </div>
       </el-row>
     </div>

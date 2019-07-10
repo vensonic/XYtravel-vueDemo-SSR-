@@ -44,7 +44,7 @@
             <div class="price">￥{{item.settle_price}}</div>
           </el-col>
           <el-col :span="5">
-            <el-button type="warning" size="small">选定</el-button>
+            <el-button type="warning" size="small" @click="choseAirTicket(data.id, item.seat_xid)">选定</el-button>
             <div class="remaining">剩余:{{item.discount}}</div>
           </el-col>
         </el-row>
@@ -62,7 +62,17 @@ export default {
   methods: {
      showRecom(){
          this.isshow = !this.isshow
-     } 
+     } ,
+     //选定机票,跳订单页
+     choseAirTicket(id,seat_xid){
+       this.$router.push({
+         path:'/airticket/order',
+         query:{
+           id,
+          seat_xid
+         }
+       })
+     }
   },
   props:{
       data:{

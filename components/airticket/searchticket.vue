@@ -95,7 +95,7 @@ export default {
     querySearchDepartCity(queryString, cb) {
       //   console.log(queryString);
       this.$axios
-        .get("http://157.122.54.189:9095/airs/city", {
+        .get("/airs/city", {
           params: { name: queryString }
         })
         .then(res => {
@@ -118,7 +118,7 @@ export default {
     //异步查询目的城市
     querySearchDestCity(queryString, cb) {
       this.$axios
-        .get("http://157.122.54.189:9095/airs/city", {
+        .get("/airs/city", {
           params: { name: queryString }
         })
         .then(res => {
@@ -171,6 +171,11 @@ export default {
         path: "/airticket/airlines",
         query: this.searchForm
       });
+
+      //将搜索信息存至localStorage
+      let searchHistory = JSON.parse(localStorage.getItem('searchHistory') || '[]')
+      searchHistory.unshift(this.searchForm)
+      localStorage.setItem('searchHistory',JSON.stringify(searchHistory))
     },
     //交换出发地和目的地
     cityReverse() {
